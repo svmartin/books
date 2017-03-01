@@ -18,14 +18,39 @@ helpers do
     end
     result
   end
+end # end helpers
+
+# Calls the block for each chapter, passing that chapter's number, name, and
+# contents.
+def each_chapter(&block)
+  @chapters.each_with_index do |name, index|
+    number = index + 1
+    chp_contents = File.read("data/chp#{number}.txt")
+    yield(number, name, chp_contents)
+  end
+end
+
+# This method returns an Array of Hashes representing chapters that match the
+# specified query. Each Hash contain values for its :name and :number keys.
+def chapters_matching(query)
+  results = []
+
+  return results unless query
+
+  each_chapter do |number, name, chp_contents|
+    results << {number: number, name: name} if chp_contents.include?(query)
+  end
+
+  results # returns an array of hashes
+end
+
+get "/search" do
+  @results = chapters_matching(params[:query])
+  erb :search
 end
 
 not_found do
   redirect "/"
-end
-
-get "/search" do
-  erb :search
 end
 
 get "/" do

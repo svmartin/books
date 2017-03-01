@@ -4,14 +4,17 @@
 #   puts chapter
 # end
 
-def in_paragraphs(text)
-  result = ""
-  text.split("\n\n").each do |line|
-    result << "<p>#{line}</p>"
-  end
-  result
-end
-chapter_content = File.read("data/chp1.txt")
+# def in_paragraphs(text)
+#   result = ""
+#   text.split("\n\n").each do |line|
+#     result << "<p>#{line}</p>"
+#   end
+#   result
+# end
+# chapter_content = File.read("data/chp1.txt")
+#
+# result = in_paragraphs(chapter_content)
+# p result
 
-result = in_paragraphs(chapter_content)
-p result
+all_chapters = Dir.glob("data/*.{txt}").map! { |file| File.basename(file) }
+p all_chapters
