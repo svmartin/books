@@ -20,6 +20,10 @@ helpers do
   end
 end
 
+not_found do
+  redirect "/"
+end
+
 get "/" do
   @title = "Books, Y'all!"
 
@@ -28,10 +32,12 @@ end
 
 get "/chapters/:number" do
   number = params[:number].to_i
+  file_path = "data/chp#{number}"
+  redirect("/") unless File.exist?("#{file_path}.txt")
+
   chapter_name = @chapters[number - 1]
   @title = "Chapter #{number}: #{chapter_name}"
-
-  @chapter_content = File.read("data/chp#{number}.txt")
+  @chapter_content = File.read("#{file_path}.txt")
 
   erb :chapter
 end
