@@ -24,6 +24,10 @@ not_found do
   redirect "/"
 end
 
+get "/search" do
+  erb :search
+end
+
 get "/" do
   @title = "Books, Y'all!"
 
