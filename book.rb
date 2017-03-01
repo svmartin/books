@@ -3,7 +3,7 @@ require "sinatra/reloader" if development?
 require 'tilt/erubis'
 
 before do
-  @chapters = File.readlines("data/toc.txt")
+  @chapters = File.readlines("data/toc/toc.txt")
 end
 
 helpers do
