@@ -13,7 +13,7 @@ helpers do
 
   def in_paragraphs(text)
     result = ""
-    text.split("\n\n").map do |line|
+    text.split("\n\n").each do |line|
       result << "<p>#{line}</p>"
     end
     result
